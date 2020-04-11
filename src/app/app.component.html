@@ -1,47 +1,34 @@
-[9:19 PM, 4/10/2020] Rewa Chauhan: http://covid.untapd.co.in
-[9:40 PM, 4/10/2020] Reminder: <html>
+<html>
 <head>
 <style>
-.item1 { grid-area: map; }
-.item2 { grid-area: info; }
-.item3 { grid-area: graph1; }
-.item4 { grid-area: graph2; }
-.item5 { grid-area: store; }
-.item6 { grid-area: twitter; }
 
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    'map map map'
-    'info info info'
-    'graph1 graph1 graph1'
-    'graph2 graph2 graph2'
-    'store store store'
-    'twitter twitter twitter';
-  grid-gap: 10px;
-  background-color: #2196F3;
-  padding: 10px;
-}
-
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  padding: 20px 0;
-  font-size: 30px;
-}
 </style>
 </head>
 <body>
 
-<h1>Grid Layout</h1>
+<h1>{{dead}}</h1>
 
 <p>This grid layout contains six columns and three rows:</p>
 
 <div class="grid-container">
-  <div class="item1">MAP</div>
-  <div class="item2">INFO</div>
+  <div class="item1">
+    <div id="chartdiv"></div>
+  </div>
+  <div class="item2">
+    <div class="flex-container">
+      <mat-card class="info" >ACTIVE CASES:<br>{{infected}}</mat-card>
+      <mat-card class="info" >DECEASED:<br>{{dead}}</mat-card>
+      <mat-card class="info" >RECOVERED:<br>{{recovered}}</mat-card>
+    </div>
+  </div>
   <div class="item3">
-    <canvas id="ctx" height="400" width="600"></canvas>
+    <div class="flex-container">
+      <div class="graph1">
+        <canvas id="pie" height="500"></canvas>
+      </div>
+      <div class="graph1"></div>
+      <div class="graph1"></div>
+    </div>
   </div>  
   <div class="item4">GRAPH2</div>
   <div class="item5">STORE NEAR</div>
