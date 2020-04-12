@@ -5,9 +5,13 @@
 }
 
 /* for th third grid charts */
-.grapgh1{
-	width:33.7%;
+.flex-container> .graph1{
+	/* width:33.7%; */
+	padding-left:10px;
+	padding-right:10px;
 	height:50%;
+	margin:10px;
+	border:1px solid rgba(223, 223, 226, 0.404);
 }
 
 /* for each info-card */
@@ -50,6 +54,30 @@
 	width:33.7%;
 	margin:10px; 	/*for space in between the cards */
 	height: 70%;
+}
+
+.info1:nth-child(1){
+	background-color: rgba(234,142,57,.2);
+	border:2px solid rgba(234,142,57,1);
+	color: rgba(234,142,57,1)
+}
+.info1:nth-child(2){
+	background-color: rgba(236,72,127,.2);
+	border:2px solid rgba(236,72,127,1);
+	color: rgba(236,72,127,1);
+}
+.info1:nth-child(3){
+	background-color: rgba(56,175,91,.2);
+	border:2px solid rgba(56,175,91,1);
+	color: rgba(56,175,91,1);
+}
+.info1{
+	margin:20.1px;	/*for space in between the cards */
+	/* height:10%; */
+	/* width:82%; */
+	/* margin-left: 10px; */
+	padding-top:20px;
+
 }
 /* no of grids */
 .item1 { grid-area: map; }

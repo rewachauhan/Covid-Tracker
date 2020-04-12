@@ -22,15 +22,50 @@
     </div>
   </div>
   <div class="item3">
+
+    <!-- dropdown -->
+    <mat-form-field>
+      <mat-label>State</mat-label>
+      <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="flex-container" >
+      <mat-card class="info" >ACTIVE CASES:<br>{{country.cases}}</mat-card>
+        <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
+        <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
+    </div>
     <div class="flex-container">
-      <div class="graph1">
-        <canvas id="pie" height="500"></canvas>
+      <div class="graph1" style="width:35%; height:50%">
+        <canvas id="pie" height="370"></canvas>
       </div>
-      <div class="graph1"></div>
-      <div class="graph1"></div>
+
+      <div class="graph1" style="width:65%; height:50%">
+        <canvas id="line" height="200"></canvas>
+      </div>
     </div>
   </div>  
-  <div class="item4">GRAPH2</div>
+  <div class="item4">
+    <div class="flex-container">
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select>
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select>
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <canvas id="bar" height="200"></canvas>
+  </div>
   <div class="item5">STORE NEAR</div>
   <div class="item6">twitter</div>
 </div>

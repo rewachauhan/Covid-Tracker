@@ -24,10 +24,13 @@ export class AppComponent implements OnInit{
   pchart;
   lchart
   covid
+  timeline
+  country
   map
   recovered="Loading..."
   dead="Loading..."
   infected="Loading..."
+  states=["a","b","c"]
   constructor(private zone:NgZone){}
   ngAfterViewInit(){
     this.zone.runOutsideAngular(() => {
@@ -219,6 +222,8 @@ export class AppComponent implements OnInit{
     this.covid=new NovelCovid()
     this.getData()  
     this.piechart()
+    this.linechart()
+    this.barchart()
   }
   barchart(){
     this.bchart = new Chart("bar", {
@@ -258,30 +263,33 @@ export class AppComponent implements OnInit{
       }
   });
   }
-
+  
+  piedata = []
+  async pieData(){
+    var total=this.country.cases+this.country.deaths+this.country.recovered
+    this.piedata.push(Math.round((this.country.cases*100)/total))
+    this.piedata.push(Math.round((this.country.deaths*100)/total))
+    this.piedata.push(Math.round((this.country.recovered*100)/total))
+    console.log(this.piedata)
+  }
   piechart(){
     this.pchart = new Chart("pie", {
       type: 'pie',
       data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['Total Cases', 'Deaths', 'Recovered'],
           datasets: [{
               label: '# of Votes',
-              data: [25, 15, 10, 45, 2, 3],
+              data: [87,3,10],
               backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
+                  
+                'rgba(54, 162, 235, .2)',
+                'rgba(255, 206, 86, .2)',
+                'rgba(153, 102, 255, .2)'
               ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
+              borderColor: [ 
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)'
               ],
               borderWidth: 1
           }]
@@ -300,8 +308,58 @@ export class AppComponent implements OnInit{
       },
   });
   }
+  lineX=[]
+  lineData(){
+  for(var key in this.timeline.cases) {
+    if(this.timeline.cases.hasOwnProperty(key)) {
+        this.lineX.push(this.timeline.cases[key]);
+        //do whatever you want with the property here, for example console.log(property)
+    }
+  }
+  }
+  linechart(){
+    this.lchart = new Chart("line", {
+      type: 'line',
+      data: {
+          labels: ['Month'],
+          datasets: [{
+              label: '# of Votes',
+              data: [87,3,10],
+              backgroundColor: [
+                  
+                'rgba(54, 162, 235, .2)',
+                'rgba(255, 206, 86, .2)',
+                'rgba(153, 102, 255, .2)'
+              ],
+              borderColor: [ 
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(153, 102, 255, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Line Chart'
+        },legend: {
+					position: 'top',
+				},animation: {
+					animateScale: true,
+					animateRotate: true
+				}
+      },
+  });
+
+  }
   async getData(){
     var data =await this.covid.all()
+    this.country= await this.covid.countries("India")
+    this.timeline = await this.covid.historical("Ïndia").timeline
+    this.states = await this.covid.countryNames();
+    await this.pieData()
     this.dead=data.deaths
     this.recovered=data.recovered
     this.infected=data.cases
