@@ -79,6 +79,18 @@
 	padding-top:20px;
 
 }
+
+/* dropdown */
+
+.form{
+	width:40%;
+	color:rgba(248, 248, 255, 0.479);
+	margin:10px
+}.form1{
+	width:20%;
+	color:rgba(248, 248, 255, 0.479);
+	margin:10px
+}
 /* no of grids */
 .item1 { grid-area: map; }
 .item2 { grid-area: info; }
@@ -106,4 +118,5 @@
   /* background-color: white; */
   padding: 20px 0;
   font-size: 30px;
+  border: 2px solid #f8f8ff4b;
 }

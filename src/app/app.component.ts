@@ -27,10 +27,15 @@ export class AppComponent implements OnInit{
   timeline
   country
   map
+  bar1
+  bar2
+  usercountry="India"
+  usercountry1="India"
+  usercountry2="China"
   recovered="Loading..."
   dead="Loading..."
   infected="Loading..."
-  states=["a","b","c"]
+  states=[]
   constructor(private zone:NgZone){}
   ngAfterViewInit(){
     this.zone.runOutsideAngular(() => {
@@ -229,57 +234,69 @@ export class AppComponent implements OnInit{
     this.bchart = new Chart("bar", {
       type: 'bar',
       data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['Cases', 'Deaths', 'Recovered','Active'],
           datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              label: this.usercountry1,
+              data: this.bar1,
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  
               ],
               borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 99, 132, 1)',
+                
               ],
               borderWidth: 1
-          }]
+          },
+          {
+            label: this.usercountry2,
+            data: this.bar2,
+            backgroundColor: [
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 206, 86, 0.2)',              
+            ],
+            borderColor: [
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(255, 206, 86, 1)',
+            ],
+            borderWidth: 1
+        }]
       },
       options: {
+        onAnimationComplete: function()
+       {
+          this.showTooltip(this.datasets[0].bars, true);
+        },
           scales: {
               yAxes: [{
                   ticks: {
                       beginAtZero: true
                   }
               }]
-          }
+          },
+          tooltips:{enabled:true}
       }
   });
   }
-  
-  piedata = []
-  async pieData(){
-    var total=this.country.cases+this.country.deaths+this.country.recovered
-    this.piedata.push(Math.round((this.country.cases*100)/total))
-    this.piedata.push(Math.round((this.country.deaths*100)/total))
-    this.piedata.push(Math.round((this.country.recovered*100)/total))
-    console.log(this.piedata)
-  }
+  piedata=[]
   piechart(){
     this.pchart = new Chart("pie", {
       type: 'pie',
       data: {
-          labels: ['Total Cases', 'Deaths', 'Recovered'],
+          labels: ['Active Cases', 'Deaths', 'Recovered'],
           datasets: [{
-              label: '# of Votes',
-              data: [87,3,10],
+              label: 'Covid-19 Cases',
+              data: this.piedata,
               backgroundColor: [
                   
                 'rgba(54, 162, 235, .2)',
@@ -308,33 +325,26 @@ export class AppComponent implements OnInit{
       },
   });
   }
-  lineX=[]
-  lineData(){
-  for(var key in this.timeline.cases) {
-    if(this.timeline.cases.hasOwnProperty(key)) {
-        this.lineX.push(this.timeline.cases[key]);
-        //do whatever you want with the property here, for example console.log(property)
-    }
-  }
-  }
+
+  linedata=[]
   linechart(){
     this.lchart = new Chart("line", {
       type: 'line',
       data: {
           labels: ['Month'],
           datasets: [{
-              label: '# of Votes',
-              data: [87,3,10],
+              label: 'Covid-19 Cases',
+              data:this.linedata,
               backgroundColor: [
                   
                 'rgba(54, 162, 235, .2)',
-                'rgba(255, 206, 86, .2)',
-                'rgba(153, 102, 255, .2)'
+                // 'rgba(255, 206, 86, .2)',
+                // 'rgba(153, 102, 255, .2)'
               ],
               borderColor: [ 
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(153, 102, 255, 1)'
+                // 'rgba(255, 206, 86, 1)',
+                // 'rgba(153, 102, 255, 1)'
               ],
               borderWidth: 1
           }]
@@ -356,12 +366,50 @@ export class AppComponent implements OnInit{
   }
   async getData(){
     var data =await this.covid.all()
-    this.country= await this.covid.countries("India")
-    this.timeline = await this.covid.historical("Ïndia").timeline
+    this.country= await this.covid.countries(this.usercountry)
+    this.timeline = await this.covid.historical(this.usercountry)
     this.states = await this.covid.countryNames();
-    await this.pieData()
     this.dead=data.deaths
     this.recovered=data.recovered
     this.infected=data.cases
+    this.initData()
+    this.compare()
+  }
+  point=[]
+  initData(){
+    this.piedata=[]
+    this.piedata.push(this.country.active)
+    this.piedata.push(this.country.deaths)
+    this.piedata.push(this.country.recovered)
+    var sum= this.piedata.reduce((a,b)=>a+b,0)
+    this.piedata=this.piedata.map(function(x){return Math.round(x*100/sum)})
+    this.pchart.data.datasets[0].data=this.piedata
+    this.pchart.update()
+
+    this.linedata=[]
+    this.point=[]
+    this.linedata=this.timeline.cases["3/13/20"]
+    
+    for (let i = 0; i < this.linedata.length; i++) {
+      this.point.push(i+1)
+    }
+    this.lchart.data.datasets[0].data=this.linedata
+    this.lchart.data.labels=this.point
+    this.lchart.update()
+    console.log(this.linedata)
+  }
+
+  async compare(){
+    var c1=await this.covid.countries(this.usercountry1)
+    var c2=await this.covid.countries(this.usercountry2)
+    this.bar1=[c1.cases,c1.deaths,c1.recovered,c1.active]
+    this.bar2=[c2.cases,c2.deaths,c2.recovered,c2.active]
+    this.bchart.data.datasets[0].label=this.usercountry1
+    this.bchart.data.datasets[1].label=this.usercountry2
+    this.bchart.data.datasets[0].data=this.bar1
+    this.bchart.data.datasets[1].data=this.bar2
+    this.bchart.update()
+
+
   }
 }

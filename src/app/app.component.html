@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>{{dead}}</h1>
+<h1>{{linedata}}</h1>
 
 <p>This grid layout contains six columns and three rows:</p>
 
@@ -16,7 +16,7 @@
   </div>
   <div class="item2">
     <div class="flex-container">
-      <mat-card class="info" >ACTIVE CASES:<br>{{infected}}</mat-card>
+      <mat-card class="info" >TOTAL CASES:<br>{{infected}}</mat-card>
       <mat-card class="info" >DECEASED:<br>{{dead}}</mat-card>
       <mat-card class="info" >RECOVERED:<br>{{recovered}}</mat-card>
     </div>
@@ -24,18 +24,14 @@
   <div class="item3">
 
     <!-- dropdown -->
-    <mat-form-field>
-      <mat-label>State</mat-label>
-      <mat-select>
+    <mat-form-field class="form">
+      <mat-label>Select Country for Live Data</mat-label>
+      <mat-select [(ngModel)]="usercountry">
         <mat-option>None</mat-option>
-        <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+        <mat-option (click)="getData()" *ngFor="let state of states" [value]="state" >{{state}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <div class="flex-container" >
-      <mat-card class="info" >ACTIVE CASES:<br>{{country.cases}}</mat-card>
-        <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
-        <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
-    </div>
+    
     <div class="flex-container">
       <div class="graph1" style="width:35%; height:50%">
         <canvas id="pie" height="370"></canvas>
@@ -45,26 +41,31 @@
         <canvas id="line" height="200"></canvas>
       </div>
     </div>
+    <div class="flex-container" >
+      <mat-card class="info" >ACTIVE CASES:<br>{{country.active}}</mat-card>
+        <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
+        <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
+    </div>
   </div>  
   <div class="item4">
     <div class="flex-container">
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select>
+      <mat-form-field class="form1">
+        <mat-label>Select Country 1</mat-label>
+        <mat-select [(ngModel)]="usercountry1">
           <mat-option>None</mat-option>
-          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state">{{state}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>State</mat-label>
-        <mat-select>
+      <mat-form-field class="form1">
+        <mat-label>Select Country 2</mat-label>
+        <mat-select [(ngModel)]="usercountry2">
           <mat-option>None</mat-option>
-          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state">{{state}}</mat-option>
         </mat-select>
       </mat-form-field>
 
     </div>
-    <canvas id="bar" height="200"></canvas>
+    <canvas id="bar" height="100"></canvas>
   </div>
   <div class="item5">STORE NEAR</div>
   <div class="item6">twitter</div>
