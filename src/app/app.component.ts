@@ -273,10 +273,20 @@ export class AppComponent implements OnInit{
         }]
       },
       options: {
-        onAnimationComplete: function()
-       {
-          this.showTooltip(this.datasets[0].bars, true);
-        },
+        onAnimationComplete: function (ctx) {
+
+          var ctx = this.chart.ctx;
+          ctx.font = this.scale.font;
+          ctx.fillStyle = this.scale.textColor
+          ctx.textAlign = "center";
+          ctx.textBaseline = "bottom";
+  
+          this.datasets.forEach(function (dataset) {
+              dataset.bars.forEach(function (bar) {
+                  ctx.fillText(bar.value, bar.x, bar.y - 5);
+              });
+          })
+      },
           scales: {
               yAxes: [{
                   ticks: {

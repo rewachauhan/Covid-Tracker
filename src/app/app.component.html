@@ -49,11 +49,11 @@
   </div>  
   <div class="item4">
     <div class="flex-container">
-      <mat-form-field class="form1">
-        <mat-label>Select Country 1</mat-label>
-        <mat-select [(ngModel)]="usercountry1">
+      <mat-form-field class="form1" >
+        <mat-label class="mat-select">Select Country 1</mat-label>
+        <mat-select [(ngModel)]="usercountry1" >
           <mat-option>None</mat-option>
-          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state" >{{state}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="form1">
