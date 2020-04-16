@@ -1,18 +1,15 @@
 <html>
 <head>
-<style>
-
-</style>
 </head>
 <body>
 
-<h1>{{linedata}}</h1>
+<!-- <h1>{{covid_world_timeline}}</h1> -->
 
 <p>This grid layout contains six columns and three rows:</p>
 
 <div class="grid-container">
   <div class="item1">
-    <div id="chartdiv"></div>
+    <div id="chartdiv" style="height:500px"></div>
   </div>
   <div class="item2">
     <div class="flex-container">
@@ -65,7 +62,14 @@
       </mat-form-field>
 
     </div>
-    <canvas id="bar" height="100"></canvas>
+    <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+    </canvas>
   </div>
   <div class="item5">STORE NEAR</div>
   <div class="item6">twitter</div>
