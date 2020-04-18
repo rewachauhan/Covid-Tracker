@@ -14,7 +14,7 @@ export class ApiService {
     private url="https://raw.githubusercontent.com/amcharts/covid-charts/master/data/json/world_timeline.json"
     private uri = "https://raw.githubusercontent.com/amcharts/covid-charts/master/data/json/total_timeline.json"
     // private url = "https://jsonplaceholder.typicode.com/todos/1"
-    private ur = "https://corona.lmao.ninja/v2/historical/India"
+    private ur = "https://corona.lmao.ninja/v2/historical"
     // FUNCTION FOR GETTING RESPONSE AND CONVERT TO JSON
     GetData(){
         return this.http.get(this.url)
