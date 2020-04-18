@@ -213,8 +213,8 @@ export class AppComponent implements OnInit{
     .subscribe((resData => this.covid_world_timeline= resData))
     this.serv.addGetData()
     .subscribe((resData => this.covid_total_timeline= resData))
-    // this.serv.lineData()
-    // .subscribe((resData => this.linedata= resData))
+    this.serv.lineData()
+    .subscribe((resData => this.linedata= resData))
   }
   async getData(){
     var data =await this.covid.all()
@@ -238,16 +238,23 @@ export class AppComponent implements OnInit{
     this.pchart.data.datasets[0].data=this.piedata
     this.pchart.update()
 
-    this.linedata=Object.values(this.timeline.cases)
-    this.point=[]
+    // this.linedata=Object.values(this.timeline.timeline.cases)
+    // this.point=[]
     // this.linedata=this.timeline.cases["3/13/20"]
     for (let i = 0; i < this.linedata.length; i++) {
-      this.point.push(i+1)
+      if(this.linedata[i].country===this.usercountry)
+        this.point=this.linedata[i].timeline.cases
     }
-    this.lchart.data.datasets[0].data=this.linedata
+    this.timeline=Object.values(this.point)
+    this.point=[]
+    for (let i = 0; i < this.timeline.length; i++) {
+      this.point.push(i+1)
+      
+    }
+    this.lchart.data.datasets[0].data=this.timeline
     this.lchart.data.labels=this.point
     this.lchart.update()
-    console.log(this.linedata)
+    console.log(this.timeline)
   }
 
   async compare(){
