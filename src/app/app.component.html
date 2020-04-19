@@ -3,7 +3,7 @@
 </head>
 <body>
 
-<h1>{{lindata}}</h1>
+<h1>{{usercountry}}</h1>
 
 <p>This grid layout contains six columns and three rows:</p>
 
@@ -21,13 +21,18 @@
   <div class="item3">
 
     <!-- dropdown -->
-    <mat-form-field class="form">
+    <!-- <mat-form-field class="form">
       <mat-label>Select Country for Live Data</mat-label>
       <mat-select [(ngModel)]="usercountry">
         <mat-option>None</mat-option>
         <mat-option (click)="getData()" *ngFor="let state of states" [value]="state" >{{state}}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
+ <span class="custom-dropdown">
+   <select [(ngModel)]="usercountry" (ngModelChange)="onchange($event)">
+      <option (ngModelChange)="onchange($event)" *ngFor="let state of states" [value]="state">{{state}}</option>
+     </select>
+  </span>
     
     <div class="flex-container">
       <div class="graph1" style="width:35%; height:50%">
@@ -46,7 +51,7 @@
   </div>  
   <div class="item4">
     <div class="flex-container">
-      <mat-form-field class="form1" >
+      <!-- <mat-form-field class="form1" >
         <mat-label class="mat-select">Select Country 1</mat-label>
         <mat-select [(ngModel)]="usercountry1" >
           <mat-option>None</mat-option>
@@ -58,9 +63,18 @@
         <mat-select [(ngModel)]="usercountry2">
           <mat-option>None</mat-option>
           <mat-option (click)="compare()" *ngFor="let state of states" [value]="state">{{state}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
+        </mat-select> -->
+       <!-- </mat-form-field> -->
+       <span class="custom-dropdown">
+        <select [(ngModel)]="usercountry1" (ngModelChange)="compare()">
+           <option (ngModelChange)="compare()" *ngFor="let state of states" [value]="state">{{state}}</option>
+          </select>
+       </span>
+       <span class="custom-dropdown">
+        <select [(ngModel)]="usercountry2" (ngModelChange)="compare()">
+           <option (ngModelChange)="compare()" *ngFor="let state of states" [value]="state">{{state}}</option>
+          </select>
+       </span>
     </div>
     <canvas baseChart
     [datasets]="barChartData"
@@ -68,7 +82,8 @@
     [options]="barChartOptions"
     [plugins]="barChartPlugins"
     [legend]="barChartLegend"
-    [chartType]="barChartType">
+    [chartType]="barChartType"
+    height="100">
     </canvas>
   </div>
   <div class="item5">STORE NEAR</div>

@@ -41,6 +41,10 @@ export class AppComponent implements OnInit{
   dead="Loading..."
   infected="Loading..."
   states=[]
+  activeColor = "#ff8726"
+  confirmedColor ="#d21a1a"
+  recoveredColor ="#45d21a"
+  deathsColor = "#1c5fe5"
   constructor(private zone:NgZone, private serv:ApiService){}
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -142,15 +146,15 @@ export class AppComponent implements OnInit{
               label: 'Covid-19 Cases',
               data: this.piedata,
               backgroundColor: [
-                  
-                'rgba(54, 162, 235, .2)',
-                'rgba(255, 206, 86, .2)',
-                'rgba(153, 102, 255, .2)'
+                'rgba(255,135,38,0.4)', 
+                'rgba(28,95,229,0.4)', 
+                'rgba(69,210,26,0.4)' 
+                
               ],
               borderColor: [ 
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(153, 102, 255, 1)'
+                this.activeColor,
+                this.deathsColor,
+                this.recoveredColor
               ],
               borderWidth: 1
           }]
@@ -175,18 +179,19 @@ export class AppComponent implements OnInit{
     this.lchart = new Chart("line", {
       type: 'line',
       data: {
-          labels: ['Month'],
+          labels: ['Days'],
           datasets: [{
-              label: 'Covid-19 Cases',
+              label: 'Active Cases in the last 30 days',
               data:this.linedata,
               backgroundColor: [
-                  
-                'rgba(54, 162, 235, .2)',
+                'rgba(255,135,38,0.4)'
+                // 'rgba(54, 162, 235, .2)',
                 // 'rgba(255, 206, 86, .2)',
                 // 'rgba(153, 102, 255, .2)'
               ],
               borderColor: [ 
-                'rgba(54, 162, 235, 1)',
+                this.activeColor
+                // 'rgba(54, 162, 235, 1)',
                 // 'rgba(255, 206, 86, 1)',
                 // 'rgba(153, 102, 255, 1)'
               ],
@@ -208,6 +213,10 @@ export class AppComponent implements OnInit{
   });
   }
 
+  onchange(select){
+    this.usercountry=select
+    this.getData()
+  }
   apiCall(){
     this.serv.GetData()
     .subscribe((resData => this.covid_world_timeline= resData))
