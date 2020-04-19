@@ -2,8 +2,6 @@
 <head>
 </head>
 <body>
-
-  
 <h1>COVID-19 LIVE TRACKER BY UNTAP'D</h1>
 
 <div class="grid-container">
@@ -20,13 +18,6 @@
   <div class="item3">
 
     <!-- dropdown -->
-    <!-- <mat-form-field class="form">
-      <mat-label>Select Country for Live Data</mat-label>
-      <mat-select [(ngModel)]="usercountry">
-        <mat-option>None</mat-option>
-        <mat-option (click)="getData()" *ngFor="let state of states" [value]="state" >{{state}}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
     <h3>Select Country for Live Data</h3>
  <span class="custom-dropdown">
    <select [(ngModel)]="usercountry" (ngModelChange)="onchange($event)"> 
@@ -52,20 +43,6 @@
   <div class="item4">
     <h3>Select any two countries for comparision</h3>
     <div class="flex-container">
-      <!-- <mat-form-field class="form1" >
-        <mat-label class="mat-select">Select Country 1</mat-label>
-        <mat-select [(ngModel)]="usercountry1" >
-          <mat-option>None</mat-option>
-          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state" >{{state}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="form1">
-        <mat-label>Select Country 2</mat-label>
-        <mat-select [(ngModel)]="usercountry2">
-          <mat-option>None</mat-option>
-          <mat-option (click)="compare()" *ngFor="let state of states" [value]="state">{{state}}</mat-option>
-        </mat-select> -->
-       <!-- </mat-form-field> -->
        <span class="custom-dropdown">
         <select [(ngModel)]="usercountry1" (ngModelChange)="compare()">
            <option (ngModelChange)="compare()" *ngFor="let state of states" [value]="state">{{state}}</option>
@@ -88,8 +65,38 @@
     </canvas>
   </div>
   <div class="item5">
-    <img src="./assets/images/fig2.jpg"/>
+    <div class="flex-container">
+      
+      <div><img src="./assets/images/fig2.jpg"/></div>
+    <div>
+    <div class="main">
+      <div class="buttons">
+        <a>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          WHO
+        </a>
+        <a>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          MOHFW
+        </a>
+        <a>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          ICMR
+        </a>
+    </div>
+    </div>
   </div>
+  </div>
+</div>
   <div class="item6">
     <a class="twitter-timeline" data-lang="en" data-height="800" data-theme="dark" href="https://twitter.com/WHO?ref_src=twsrc%5Etfw">
       Tweets by WHO
