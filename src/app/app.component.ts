@@ -73,6 +73,7 @@ export class AppComponent implements OnInit{
     this.piechart()
     this.linechart()
     this.apiCall()
+    twttr.widgets.load()
     // this.barchart()
   }
   barchart(){
@@ -295,7 +296,7 @@ export class AppComponent implements OnInit{
   let countryColor = am4core.color("#3b3b3b");
   let countryStrokeColor = am4core.color("#ffffff");
   let buttonStrokeColor = am4core.color("#ffffff");
-  let countryHoverColor = am4core.color("#1b1b1b");
+  let countryHoverColor = am4core.color("#3b3b3b");
   let activeCountryColor = am4core.color("#e5e5e5");
 
   let currentIndex;
@@ -511,9 +512,9 @@ export class AppComponent implements OnInit{
   imageTemplate.events.on("hit", handleImageHit);
 
   // this is needed for the tooltip to point to the top of the circle instead of the middle
-  // imageTemplate.adapter.add("tooltipY", function(tooltipY, target) {
-  //   return -target.children.getIndex(0).
-  // })
+  imageTemplate.adapter.add("tooltipY", function(tooltipY, target) {
+    return -target.children.getIndex(0)
+  })
 
   // When hovered, circles become non-opaque  
   let imageHoverState = imageTemplate.states.create("hover");
@@ -694,7 +695,7 @@ export class AppComponent implements OnInit{
   sizeLabel.tooltip.setBounds({ x: 0, y: 0, width: 200000, height: 200000 })
   sizeLabel.tooltip.label.wrap = true;
   sizeLabel.tooltip.label.maxWidth = 300;
-  sizeLabel.tooltipText = "Some countries have so many cases that bubbles for countries with smaller values often look the same even if there is a significant difference between them. This slider can be used to increase maximum size of a bubble so that when you zoom in to a region with relatively small values you could compare them anyway."
+  // sizeLabel.tooltipText = "Some countries have so many cases that bubbles for countries with smaller values often look the same even if there is a significant difference between them. This slider can be used to increase maximum size of a bubble so that when you zoom in to a region with relatively small values you could compare them anyway."
   sizeLabel.fill = am4core.color("#ffffff");
 
   sizeLabel.adapter.add("y", function(y, target) {
@@ -1351,7 +1352,7 @@ export class AppComponent implements OnInit{
 
   // set initial data and names
   updateCountryName();
-  //changeDataType("active");
+  changeDataType("active");
   //populateCountries(slideData.list);
 
   setTimeout(updateSeriesTooltip, 3000);
