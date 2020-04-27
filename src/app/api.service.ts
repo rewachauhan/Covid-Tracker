@@ -13,8 +13,7 @@ export class ApiService {
     // URL FOR THE SERVER
     private url="https://raw.githubusercontent.com/amcharts/covid-charts/master/data/json/world_timeline.json"
     private uri = "https://raw.githubusercontent.com/amcharts/covid-charts/master/data/json/total_timeline.json"
-    // private url = "https://jsonplaceholder.typicode.com/todos/1"
-    private ur = "https://corona.lmao.ninja/v2/historical"
+    //private ur = "https://corona.lmao.ninja/v2/historical/"
     // FUNCTION FOR GETTING RESPONSE AND CONVERT TO JSON
     GetData(){
         return this.http.get(this.url)
@@ -24,8 +23,8 @@ export class ApiService {
         return this.http.get(this.uri)
         .pipe(map((res: Response) => res.json()))
     }
-    lineData(){
-      return this.http.get(this.ur)
-      .pipe(map((res: Response) => res.json()))
-    }
+    // lineData(usercountry){
+    //   return this.http.get(this.ur+usercountry)
+    //   .pipe(map((res: Response) => res.json()))
+    // }
 }
