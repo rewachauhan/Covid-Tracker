@@ -1,74 +1,96 @@
-<h1>COVID-19 LIVE TRACKER BY UNTAP'D</h1>
-  <div style="width:100%;">
+ <div style="width:100%;">
   <div class="grid-container">
+    <div><h1>COVID-19 LIVE TRACKER BY UNTAP'D</h1></div>
+
+    <!-- //////////MAP/////////// -->
     <div class="item1">
       <div class="chartmob">
         <div id="chartmob" style="height:500px"></div>
       </div>
       <div id="chartdiv" style="height:500px"></div>
     </div>
+
+    <!-- //////////INFO CARD-WORLD/////////// -->
     <div class="item2">
+      <h3>Worldwide Count</h3>
       <div class="flex-container">
-        <mat-card class="info" >TOTAL CASES:<br>{{infected}}</mat-card>
+        <mat-card class="info" >ACTIVE:<br>{{current}}</mat-card>
         <mat-card class="info" >DECEASED:<br>{{dead}}</mat-card>
         <mat-card class="info" >RECOVERED:<br>{{recovered}}</mat-card>
       </div>
     </div>
+
+    <!-- //////////LIVE DATA FOR COUNTRY/////////// -->
     <div class="item3">
   
-      <!-- dropdown -->
+      <!-- /////////dropdown1//////// -->
       <h3>Select Country for Live Data</h3>
       <span class="custom-dropdown">
         <select [(ngModel)]="usercountry" (ngModelChange)="onchange($event)"> 
           <option (ngModelChange)="onchange($event)" *ngFor="let state of states" [value]="state">{{state}}</option>
         </select>
       </span>
-      
+
+      <!-- //////////INFO-CARD-COUNTRY/////////// -->
+      <div class="flex-container" >
+        <mat-card class="info" >ACTIVE:<br>{{country.active}}</mat-card>
+          <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
+          <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
+      </div>
+
+    <!-- //////////PIECHART/////////// -->
       <div class="flex-container">
         <div class="graph1" style="flex:35%;">
           <canvas id="pie" height="270"></canvas>
         </div>
-  
+ 
+    <!-- //////////LINECHART-COUNTRY/////////// -->        
         <div class="graph1" style="flex:65%;">
           <canvas id="line" height="350"></canvas>
         </div>
       </div>
-      <div class="flex-container" >
-        <mat-card class="info" >ACTIVE CASES:<br>{{country.active}}</mat-card>
-          <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
-          <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
-      </div>
-    </div>  
+   </div>  
+
+    <!-- //////////COMPARISION/////////// -->
     <div class="item4">
       <h3>Select any two countries for comparision</h3>
       <div class="flex-container">
+
+    <!-- //////////dropdown2/////////// -->
         <span class="custom-dropdown">
           <select [(ngModel)]="usercountry1" (ngModelChange)="compare()">
             <option (ngModelChange)="compare()" *ngFor="let state of states" [value]="state">{{state}}</option>
           </select>
         </span>
+
+    <!-- //////////dropdown2/////////// -->
         <span class="custom-dropdown">
           <select [(ngModel)]="usercountry2" (ngModelChange)="compare()">
             <option (ngModelChange)="compare()" *ngFor="let state of states" [value]="state">{{state}}</option>
           </select>
         </span>
       </div>
+
+    <!-- //////////BARCHART/////////// -->
       <div class="bar">
-      <canvas baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [plugins]="barChartPlugins"
-      [legend]="barChartLegend"
-      [chartType]="barChartType"
-      >
-      </canvas>
+        <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        >
+        </canvas>
       </div>
-    </div>
+   </div>
+
+    <!-- //////////IMAGE & LINKS/////////// -->
     <div class="item5">
       <div class="flex-container">
         <div><img src="./assets/images/fig2.jpg"/></div>
-  
+
+    <!-- //////////LINKS/////////// -->
         <div class="main">
           <div class="buttons">
             <a class="a" href="https://www.who.int/news-room/q-a-detail/q-a-coronaviruses">
@@ -98,11 +120,14 @@
       </div>
     </div>
   </div>
+
+    <!-- //////////RECENT UPDATES/////////// -->
     <div class="item6">
       <h3>Recent Updates</h3>
       <div class="flex-container">
-      
-      <div class="twitter"><a class="twitter-timeline" data-lang="en" data-height="400" width="400" data-theme="dark" 
+
+    <!-- //////////TWITTER/////////// -->
+     <div class="twitter"><a class="twitter-timeline" data-lang="en" data-height="400" width="400" data-theme="dark" 
       href="https://twitter.com/WHO?ref_src=twsrc%5Etfw">Tweets by WHO</a></div>
   
       <div class="twitter"><a class="twitter-timeline" data-theme="dark" data-height="400" width="400"
@@ -112,10 +137,12 @@
         href="https://twitter.com/COVIDNewsByMIB?ref_src=twsrc%5Etfw">Tweets by COVIDNewsByMIB</a></div>
     </div>
     </div>
+
+    <!-- //////////FOOTER/////////// -->
     <div class="item7"><div style="padding-left: 10px; padding-right: 10px;" *ngIf="hide==true">
       <p style="font-size:15px;">COVID-19 Live Tracker is a subdomain maintained by
       Untap'd, a startup from Sikkim, India, in the Connected 
-      Cars Domain. <a style="padding-left: 10px; color:'rgba(80,220,100,1)';" (click)="toggle()"><u>Read More</u></a></p></div>
+      Cars Domain.<br> <a style="padding-left: 10px; color:'rgba(80,220,100,1)';" (click)="toggle()"><u>Read More</u></a></p></div>
   
     <div style="padding-left: 10px; padding-right: 10px;" *ngIf="hide==false">
       <p style="font-size:15px;">COVID-19 Live Tracker is a subdomain maintained by
@@ -129,7 +156,7 @@
       gain anything out of this. Our sole purpose has been 
       to help the world come out of this as soon as possible. 
       For that, we need to share awareness and this is how 
-      we have decided to step up.<a style="padding-left: 10px; color:'rgba(80,220,100,1)';"  (click)="toggle()"><u>Show Less</u></a></p></div>
+      we have decided to step up.<br><a style="padding-left: 10px; color:'rgba(80,220,100,1)';"  (click)="toggle()"><u>Show Less</u></a></p></div>
     
       <div style="width:100%;"><a href="https://untapd.co.in/"><img src="./assets/images/untapd.png" style="height:10%; width:auto;"/></a></div></div>
   </div>

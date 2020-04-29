@@ -14,31 +14,44 @@ import {drawMap,drawMobileMap} from "@amcharts/amcharts4/custommap";
 })
 export class AppComponent implements OnInit{
   title = 'covid-app';
+
   classname="preload"
   classname1="postload"
+
   hide=true
+
+  timeline
   covid_world_timeline
   covid_total_timeline
-  bchart;
-  pchart;
+
+  bchart
+  pchart
   lchart
+
   covid
-  timeline
+  
   country
   map
+
   bar1
   bar2
+
   usercountry="India"
   usercountry1="India"
   usercountry2="China"
+
   recovered="Loading..."
   dead="Loading..."
   infected="Loading..."
+  current="Loading..."
+
   states=[]
+
   activeColor = "#ff8726"
   confirmedColor ="#d21a1a"
   recoveredColor ="#45d21a"
   deathsColor = "#1c5fe5"
+
   constructor(private zone:NgZone){}
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -60,6 +73,8 @@ export class AppComponent implements OnInit{
     { data: [], label:this.usercountry1, backgroundColor:"rgba(255,99,132,1)", borderColor:"rgba(255,99,132,1)"},
     { data: [], label:this.usercountry2, backgroundColor:"rgba(255,206,86,1)", borderColor:"rgba(255,206,86,1)" }
   ];
+
+
   ngOnInit(){
     this.covid=new NovelCovid()
     this.compare()
@@ -79,15 +94,19 @@ export class AppComponent implements OnInit{
           ngFjs.parentNode.insertBefore(ngJs, ngFjs);
         }
   }
+
+
   toggle(){
     this.hide=!this.hide;
   }
+
+
   piedata=[]
   piechart(){
     this.pchart = new Chart("pie", {
       type: 'pie',
       data: {
-          labels: ['Active Cases', 'Deaths', 'Recovered'],
+          labels: ['Active', 'Deaths', 'Recovered'],
           datasets: [{
               label: 'Covid-19 Cases',
               data:[1000,2000,3000],
@@ -125,6 +144,7 @@ export class AppComponent implements OnInit{
       },
   });
   }
+
 
   linedata=[]
   linechart(){
@@ -193,10 +213,13 @@ export class AppComponent implements OnInit{
   });
   }
 
+
   onchange(select){
     this.usercountry=select
     this.getData()
   }
+
+
   async getData(){
     var data =await this.covid.all()
     this.country= await this.covid.countries(this.usercountry)
@@ -205,9 +228,12 @@ export class AppComponent implements OnInit{
     this.dead=data.deaths
     this.recovered=data.recovered
     this.infected=data.cases
+    this.current=data.active
     this.initData()
     this.compare()
   }
+
+
   point=[]
   initData(){
 
@@ -219,7 +245,13 @@ export class AppComponent implements OnInit{
     this.pchart.data.datasets[0].data=this.piedata
     this.pchart.update()
     var temp=Object.values(this.timeline['timeline'].cases)
+    var temp1=Object.values(this.timeline['timeline'].deaths)
+    var temp2=Object.values(this.timeline['timeline'].recovered)
     this.point=[]
+    for (let i = 0; i < temp.length; i++) {
+      temp[i]= Number(temp[i]) - Number(temp1[i]) - Number(temp2[i]) 
+      
+    }
     for (let i = 0; i < temp.length; i++) {
       this.point.push(i+1)
       
@@ -233,6 +265,7 @@ export class AppComponent implements OnInit{
     
   }
 
+
   async compare(){
     var c1=await this.covid.countries(this.usercountry1)
     var c2=await this.covid.countries(this.usercountry2)
@@ -244,4 +277,5 @@ export class AppComponent implements OnInit{
     this.barChartData[1].data=this.bar2
 
   }
+  
  }

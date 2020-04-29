@@ -36,10 +36,8 @@ h3{
 
 /* for th third grid charts */
 .flex-container> .graph1{
-	/* width:33.7%; */
 	padding-left:10px;
 	padding-right:10px;
-	/* height:50%; */
 	margin:10px;
 	border:1px solid rgba(223, 223, 226, 0.404);
 }
@@ -108,6 +106,7 @@ h3{
 	padding-left:100px; */
 }
 /* no of grids */
+
 .item1 { grid-area: map; }
 .item2 { grid-area: info; }
 .item3 { grid-area: graph1; }
@@ -139,7 +138,6 @@ h3{
   grid-gap: 10px;
   background-color: #191919;
   padding: 10px;
-  /* width:auto; */
 }
 
 .grid-container > div {
@@ -378,6 +376,7 @@ h3{
 	.item5 > .main{
 		vertical-align: baseline;
 	}
+
 	.bar{
 		height: 500px;
 	}
@@ -387,6 +386,9 @@ h3{
 
 	* {   
 	  flex-direction: column;
+	}
+	h1{
+		font-size:20px;
 	}
 
 	#chartdiv{
