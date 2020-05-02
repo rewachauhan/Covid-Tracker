@@ -1,7 +1,35 @@
  <div style="width:100%;">
   <div class="grid-container">
     <div><h1>COVID-19 LIVE TRACKER BY UNTAP'D</h1></div>
+    <!-- //////////LIVE DATA FOR COUNTRY/////////// -->
+    <div class="item3">
+      <!-- /////////dropdown1//////// -->
+      <h3>Select Country for Live Data</h3>
+      <span class="custom-dropdown">
+        <select [(ngModel)]="usercountry" (ngModelChange)="onchange($event)"> 
+          <option (ngModelChange)="onchange($event)" *ngFor="let state of states" [value]="state">{{state}}</option>
+        </select>
+      </span>
 
+      <!-- //////////INFO-CARD-COUNTRY/////////// -->
+      <div class="flex-container" >
+          <mat-card class="info" >ACTIVE:<br>{{country.active}}</mat-card>
+          <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
+          <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
+      </div>
+
+    <!-- //////////PIECHART/////////// -->
+      <!-- <div class="flex-container"> -->
+        <!-- <div class="graph1" style="flex:35%;">
+          <canvas id="pie" height="270"></canvas>
+        </div> -->
+ 
+    <!-- //////////LINECHART-COUNTRY/////////// -->        
+        <!-- <div class="graph1" style="flex:65%;">
+          <canvas id="line" height="350"></canvas>
+        </div> -->
+      <!-- </div> -->
+    </div>  
     <!-- //////////MAP/////////// -->
     <div class="item1">
       <div class="chartmob">
@@ -19,37 +47,6 @@
         <mat-card class="info" >RECOVERED:<br>{{recovered}}</mat-card>
       </div>
     </div>
-
-    <!-- //////////LIVE DATA FOR COUNTRY/////////// -->
-    <div class="item3">
-  
-      <!-- /////////dropdown1//////// -->
-      <h3>Select Country for Live Data</h3>
-      <span class="custom-dropdown">
-        <select [(ngModel)]="usercountry" (ngModelChange)="onchange($event)"> 
-          <option (ngModelChange)="onchange($event)" *ngFor="let state of states" [value]="state">{{state}}</option>
-        </select>
-      </span>
-
-      <!-- //////////INFO-CARD-COUNTRY/////////// -->
-      <div class="flex-container" >
-        <mat-card class="info" >ACTIVE:<br>{{country.active}}</mat-card>
-          <mat-card class="info" >DECEASED:<br>{{country.deaths}}</mat-card>
-          <mat-card class="info" >RECOVERED:<br>{{country.recovered}}</mat-card>
-      </div>
-
-    <!-- //////////PIECHART/////////// -->
-      <div class="flex-container">
-        <div class="graph1" style="flex:35%;">
-          <canvas id="pie" height="270"></canvas>
-        </div>
- 
-    <!-- //////////LINECHART-COUNTRY/////////// -->        
-        <div class="graph1" style="flex:65%;">
-          <canvas id="line" height="350"></canvas>
-        </div>
-      </div>
-   </div>  
 
     <!-- //////////COMPARISION/////////// -->
     <div class="item4">

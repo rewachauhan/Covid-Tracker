@@ -3,7 +3,7 @@ import { Chart } from 'chart.js';
 import { NovelCovid } from "novelcovid";
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+// import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {drawMap,drawMobileMap} from "@amcharts/amcharts4/custommap";
 
@@ -13,7 +13,7 @@ import {drawMap,drawMobileMap} from "@amcharts/amcharts4/custommap";
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit{
-  title = 'covid-app';
+   gtitle = 'covid-app';
 
   classname="preload"
   classname1="postload"
@@ -79,8 +79,8 @@ export class AppComponent implements OnInit{
     this.covid=new NovelCovid()
     this.compare()
     this.getData()  
-    this.piechart()
-    this.linechart()
+    // this.piechart()
+    // this.linechart()
     drawMap()
     drawMobileMap()
     let ngJs: any;
@@ -101,117 +101,117 @@ export class AppComponent implements OnInit{
   }
 
 
-  piedata=[]
-  piechart(){
-    this.pchart = new Chart("pie", {
-      type: 'pie',
-      data: {
-          labels: ['Active', 'Deaths', 'Recovered'],
-          datasets: [{
-              label: 'Covid-19 Cases',
-              data:[1000,2000,3000],
-              backgroundColor: [
-                'rgba(255,135,38,1)', 
-                'rgba(28,95,229,1)', 
-                'rgba(69,210,26,1)' 
+  // piedata=[]
+  // piechart(){
+  //   this.pchart = new Chart("pie", {
+  //     type: 'pie',
+  //     data: {
+  //         labels: ['Active', 'Deaths', 'Recovered'],
+  //         datasets: [{
+  //             label: 'Covid-19 Cases',
+  //             data:[1000,2000,3000],
+  //             backgroundColor: [
+  //               'rgba(255,135,38,1)', 
+  //               'rgba(28,95,229,1)', 
+  //               'rgba(69,210,26,1)' 
                 
-              ],
-              borderColor: [ 
-                this.activeColor,
-                this.deathsColor,
-                this.recoveredColor
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        plugins: {
-          datalabels: {
-              display: false,
-          },
-      },
-        responsive: true,
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: 'Pie Chart'
-        },legend: {
-					position: 'top',
-				},animation: {
-					animateScale: true,
-					animateRotate: true
-				}
-      },
-  });
-  }
+  //             ],
+  //             borderColor: [ 
+  //               this.activeColor,
+  //               this.deathsColor,
+  //               this.recoveredColor
+  //             ],
+  //             borderWidth: 1
+  //         }]
+  //     },
+  //     options: {
+  //       plugins: {
+  //         datalabels: {
+  //             display: false,
+  //         },
+  //     },
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       title: {
+  //         display: true,
+  //         text: 'Pie Chart'
+  //       },legend: {
+	// 				position: 'top',
+	// 			},animation: {
+	// 				animateScale: true,
+	// 				animateRotate: true
+	// 			}
+  //     },
+  // });
+  // }
 
 
-  linedata=[]
-  linechart(){
-    this.lchart = new Chart("line", {
-      type: 'line',
-      data: {
-          labels: ['Days'],
-          datasets: [{
-              label: 'Active',
-              data:this.linedata,
-              borderColor: [ 
-                this.activeColor,
+  // linedata=[]
+  // linechart(){
+  //   this.lchart = new Chart("line", {
+  //     type: 'line',
+  //     data: {
+  //         labels: ['Days'],
+  //         datasets: [{
+  //             label: 'Active',
+  //             data:this.linedata,
+  //             borderColor: [ 
+  //               this.activeColor,
                 
-              ],
-              pointRadius: 3,
-              pointStyle:"star",
-              pointBorderColor:this.activeColor,
+  //             ],
+  //             pointRadius: 3,
+  //             pointStyle:"star",
+  //             pointBorderColor:this.activeColor,
 
-              borderWidth: 2
-          },
-          {
-            label: 'Deaths',
-            data:this.linedata,
-            borderColor: [ 
-              this.deathsColor,
+  //             borderWidth: 2
+  //         },
+  //         {
+  //           label: 'Deaths',
+  //           data:this.linedata,
+  //           borderColor: [ 
+  //             this.deathsColor,
               
-            ],
-            pointRadius: 3,
-            pointStyle:"cross",
-            pointBorderColor:this.deathsColor,
+  //           ],
+  //           pointRadius: 3,
+  //           pointStyle:"cross",
+  //           pointBorderColor:this.deathsColor,
 
-            borderWidth: 2
-        },
-        {
-          label: 'Recovered',
-          data:this.linedata,
-          borderColor: [ 
-            this.recoveredColor,
+  //           borderWidth: 2
+  //       },
+  //       {
+  //         label: 'Recovered',
+  //         data:this.linedata,
+  //         borderColor: [ 
+  //           this.recoveredColor,
             
-          ],
-          pointRadius: 3,
-          pointStyle:"circle",
-          pointBorderColor:this.recoveredColor,
+  //         ],
+  //         pointRadius: 3,
+  //         pointStyle:"circle",
+  //         pointBorderColor:this.recoveredColor,
 
-          borderWidth: 2
-      }]
-      },
-      options: {
-        plugins: {
-          datalabels: {
-              display: false,
-          },
-      },
-        responsive: true,
-        maintainAspectRatio:false,
-        title: {
-          display: true,
-          text: 'Trend in the last 30 days'
-        },legend: {
-          position: 'top',
-				},animation: {
-					animateScale: true,
-					animateRotate: true
-				}
-      },
-  });
-  }
+  //         borderWidth: 2
+  //     }]
+  //     },
+  //     options: {
+  //       plugins: {
+  //         datalabels: {
+  //             display: false,
+  //         },
+  //     },
+  //       responsive: true,
+  //       maintainAspectRatio:false,
+  //       title: {
+  //         display: true,
+  //         text: 'Trend in the last 30 days'
+  //       },legend: {
+  //         position: 'top',
+	// 			},animation: {
+	// 				animateScale: true,
+	// 				animateRotate: true
+	// 			}
+  //     },
+  // });
+  // }
 
 
   onchange(select){
@@ -238,12 +238,12 @@ export class AppComponent implements OnInit{
   initData(){
 
    
-    this.piedata=[]
-    this.piedata.push(this.country.active)
-    this.piedata.push(this.country.deaths)
-    this.piedata.push(this.country.recovered)
-    this.pchart.data.datasets[0].data=this.piedata
-    this.pchart.update()
+    // this.piedata=[]
+    // this.piedata.push(this.country.active)
+    // this.piedata.push(this.country.deaths)
+    // this.piedata.push(this.country.recovered)
+    // this.pchart.data.datasets[0].data=this.piedata
+    // this.pchart.update()
     var temp=Object.values(this.timeline['timeline'].cases)
     var temp1=Object.values(this.timeline['timeline'].deaths)
     var temp2=Object.values(this.timeline['timeline'].recovered)
